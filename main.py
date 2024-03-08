@@ -1,68 +1,52 @@
-from kivy.app import App
-from kivy.metrics import dp
-from kivy.uix.behaviors import TouchRippleBehavior
-from kivy.uix.button import Button
+import random
+
 from kivy.lang import Builder
-from kivy.utils import get_color_from_hex
+from kivy.properties import StringProperty
+from kivymd.app import MDApp
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
+from kivymd.uix.toolbar import MDBottomAppBar, MDActionBottomAppBarButton
+from kivymd.uix.button import MDIconButton, MDFlatButton, MDTextButton
 
-KV = """
-#:import get_color_from_hex kivy.utils.get_color_from_hex
+from kivymd.app import MDApp
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
+from kivy.lang import Builder
+from kivymd.uix.label import MDLabel
 
-
-<RectangleFlatButton>:
-    ripple_color: 0, 0, 0, .2
-    background_color: 0, 0, 0, 0
-    color: root.primary_color
-
-    canvas.before:
-        Color:
-            rgba: root.primary_color
-        Line:
-            width: 1
-            rectangle: (self.x, self.y, self.width, self.height)
-
-Screen:
-    canvas:
-        Color:
-            rgba: get_color_from_hex("#0F0F0F")
-        Rectangle:
-            pos: self.pos
-            size: self.size
-"""
+Builder.load_file("layout.kv")
 
 
-class RectangleFlatButton(TouchRippleBehavior, Button):
-    primary_color = get_color_from_hex("#EB8933")
+class Main(Screen):
+    random_number = StringProperty()
 
-    def on_touch_down(self, touch):
-        collide_point = self.collide_point(touch.x, touch.y)
-        if collide_point:
-            touch.grab(self)
-            self.ripple_show(touch)
-            return True
-        return False
+# меняем значения элемента
+    def __init__(self, **kwargs):
+        super(Main, self).__init__(**kwargs)
+        self.random_number = str(random.randint(1, 100))
 
-    def on_touch_up(self, touch):
-        if touch.grab_current is self:
-            touch.ungrab(self)
-            self.ripple_fade()
-            return True
-        return False
+    def change_text(self):
+        self.random_number = str(random.randint(1, 100))
 
 
-class MainApp(App):
+class Deals(Screen):
+    pass
+
+
+class MainApp(MDApp):
     def build(self):
-        screen = Builder.load_string(KV)
-        screen.add_widget(
-            RectangleFlatButton(
-                text="Hello, World",
-                pos_hint={"center_x": 0.5, "center_y": 0.5},
-                size_hint=(None, None),
-                size=(dp(110), dp(35)),
-                ripple_color=(0.8, 0.8, 0.8, 0.5),
-            )
-        )
-        return screen
 
+        self.sm = ScreenManager(transition=NoTransition())
 
-MainApp().run()
+        self.sm.add_widget(Main(name="Main"))
+        self.sm.add_widget(Deals(name="Deals"))
+
+        return self.sm
+
+    def change_screen(self, scr):
+        self.sm.current = scr
+
+    def change_label_text(self):
+        # self.root.ids.myLabel.text = "123"
+        self.sm.ids.myLabel.text = "123"
+
+if __name__ == "__main__":
+    MainApp().run()

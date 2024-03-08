@@ -1,0 +1,32 @@
+<Main>:
+    BoxLayout:
+
+        MDLabel:
+            id: "myLabel"
+            text: root.random_number
+
+        MDBottomAppBar
+
+            MDActionBottomAppBarButton
+                icon: "chart-line"
+                on_release: app.change_screen("Deals")
+
+            MDActionBottomAppBarButton
+                icon: "chart-line"
+                on_release: root.change_text()
+
+            MDActionBottomAppBarButton
+                icon: "person"
+
+<Deals>:
+    BoxLayout:
+        orientation: "vertical"
+        MDRoundFlatButton:
+            text: "Go to Tela 2"
+            on_release: app.root.current = "tela2"
+
+        MDBottomAppBar
+            title: "Tela 2"
+            left_action_items: [["arrow-left",  lambda x: app.change_screen("tela1")]]
+        MDLabel:
+            text: "Tela 2"
