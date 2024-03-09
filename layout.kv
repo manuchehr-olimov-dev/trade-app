@@ -1,22 +1,27 @@
 <Main>:
+
+    MDFlatButton:
+        text: root.default_text
+        pos: 300, 300
+
     BoxLayout:
 
-        MDLabel:
-            id: "myLabel"
-            text: root.random_number
+        MDBottomAppBar:
 
-        MDBottomAppBar
-
-            MDActionBottomAppBarButton
+            MDActionBottomAppBarButton:
                 icon: "chart-line"
+                pos_hint: {"x": 0.1, "y": 0.2}
+
+            MDActionBottomAppBarButton:
+                icon: "handshake"
+                pos_hint: {"x": 0.45, "y": 0.2}
                 on_release: app.change_screen("Deals")
 
-            MDActionBottomAppBarButton
-                icon: "chart-line"
-                on_release: root.change_text()
+            MDActionBottomAppBarButton:
+                icon: "account"
+                pos_hint: {"x": 0.8, "y": 0.2}
+                on_release: app.change_screen("Account")
 
-            MDActionBottomAppBarButton
-                icon: "person"
 
 <Deals>:
     BoxLayout:
@@ -25,8 +30,84 @@
             text: "Go to Tela 2"
             on_release: app.root.current = "tela2"
 
-        MDBottomAppBar
-            title: "Tela 2"
-            left_action_items: [["arrow-left",  lambda x: app.change_screen("tela1")]]
+        MDBottomAppBar:
+
+            MDActionBottomAppBarButton:
+                icon: "chart-line"
+                pos_hint: {"x": 0.1, "y": 0.2}
+                on_release: app.change_screen("Main")
+
+            MDActionBottomAppBarButton:
+                icon: "handshake"
+                pos_hint: {"x": 0.45, "y": 0.2}
+
+            MDActionBottomAppBarButton:
+                pos_hint: {"x": 0.8, "y": 0.2}
+                icon: "account"
+                on_release: app.change_screen("Account")
+
+
+<Account>:
+    BoxLayout:
+        MDIconButton:
+            icon: "account"
+            theme_text_color: "Custom"
+            text_color: 0,0,0,1
+            pos_hint: {"x": 0.8, "y": 0.85}
+            icon_size: "32sp"
+
         MDLabel:
-            text: "Tela 2"
+            text: root.getUserName()
+            pos_hint: {"x": 0.8, "y": 0.4}
+            font_size: "32sp"
+
+#=== Stock Market ===>
+
+    MDLabel:
+        text: "Биржа:"
+        padding: 15
+        pos_hint: {"center_x": .5, "center_y":.8}
+
+    MDRaisedButton:
+        id: stockButton
+        text: root.getCurrentStock()
+        pos_hint: {"center_x": .5, "center_y":.8}
+        on_release: root.open_stocks()
+
+#=== End Stock Market ===>
+
+#=== DEPOSIT ===>
+
+    MDLabel:
+        text: "Депозит:"
+        padding: 15
+        pos_hint: {"center_x": .5, "center_y": .7}
+
+    MDRaisedButton:
+        id: depositButton
+        text: root.getCurrentStock()
+        pos_hint: {"center_x": .5, "center_y": .7}
+        on_release: root.depositDialog()
+
+#=== END DEPOSIT ===>
+
+#=== MENU ===>
+    BoxLayout:
+        orientation: "vertical"
+
+        MDBottomAppBar:
+
+            MDActionBottomAppBarButton:
+                icon: "chart-line"
+                pos_hint: {"x": 0.1, "y": 0.2}
+                on_release: app.change_screen("Main")
+
+            MDActionBottomAppBarButton:
+                icon: "handshake"
+                pos_hint: {"x": 0.45, "y": 0.2}
+                on_release: app.change_screen("Deals")
+
+            MDActionBottomAppBarButton:
+                icon: "account"
+                pos_hint: {"x": 0.8, "y": 0.2}
+#=== END MENU ===>
