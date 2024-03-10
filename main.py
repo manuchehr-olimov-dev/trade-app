@@ -9,27 +9,24 @@ from kivymd.uix.textfield import MDTextField
 from kivy.config import Config
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dialog import MDDialog
+from components.ChangeDefaultSettings import ChangeDefaultSettings
 
 from components.account import Account
 from components.main import Main
+from components.deals import Deals
 
 Config.set('graphics', 'width', 480)
 Config.set('graphics', 'height', 600)
-Config.set('graphics', 'resizable', True)
+Config.set('graphics', 'resizable', False)
 Config.write()
 
 Builder.load_file("layout.kv")
 
 
 
-class Deals(Screen):
-    pass
 
 
-
-
-
-# MainApp -----------------------------------------------
+# MainApp
 class MainApp(MDApp):
     def build(self):
         # ['Red', 'Pink', 'Purple', 'DeepPurple', 'Indigo', 'Blue', 'LightBlue', 'Cyan', 'Teal', 'Green', 'LightGreen', 'Lime', 'Yellow', 'Amber', 'Orange', 'DeepOrange', 'Brown', 'Gray', 'BlueGray']
@@ -41,6 +38,7 @@ class MainApp(MDApp):
         self.sm.add_widget(Main(name="Main"))
         self.sm.add_widget(Deals(name="Deals"))
         self.sm.add_widget(Account(name="Account"))
+        self.sm.add_widget(ChangeDefaultSettings(name="ChangeDefaultSettings"))
 
         return self.sm
 

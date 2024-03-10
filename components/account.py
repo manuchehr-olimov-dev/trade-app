@@ -1,10 +1,10 @@
 import json
 
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.button import MDFlatButton, MDRectangleFlatButton
+from kivymd.uix.button import MDFlatButton, MDIconButton, MDRectangleFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
-
+from kivymd.uix.textfield import MDTextField
 
 
 class Account(Screen):
@@ -12,8 +12,6 @@ class Account(Screen):
     data = json.load(settings)
 
     dropdownStock = None
-
-    dialogDeposit = None
 
     def __init__(self, **kwargs):
         super(Account, self).__init__(**kwargs)
@@ -25,6 +23,18 @@ class Account(Screen):
     def getCurrentStock(self):
         if self.data['currentStock']:
             return self.data["currentStock"]
+
+    def getCurrentDeposit(self):
+        if self.data['deposit']:
+            return f"Депозит: {self.data["deposit"]}%"
+
+    def getCurrentPercentageOfRiskOfDeposit(self):
+        if self.data['percentageOfRiskOfDeposit']:
+            return f"Процент риска по депозиту: {self.data["percentageOfRiskOfDeposit"]}%"
+
+    def getCurrentSmartStopPercentage(self):
+        if self.data['smartStopPercentage']:
+            return f"Смарт-стоп: {self.data["smartStopPercentage"]}%"
 
     def open_stocks(self):
 

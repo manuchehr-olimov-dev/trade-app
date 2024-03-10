@@ -4,10 +4,10 @@
         text: root.default_text
         pos: 300, 300
 
+#=== MENU ===>
+
     BoxLayout:
-
         MDBottomAppBar:
-
             MDActionBottomAppBarButton:
                 icon: "chart-line"
                 pos_hint: {"x": 0.1, "y": 0.2}
@@ -22,29 +22,54 @@
                 pos_hint: {"x": 0.8, "y": 0.2}
                 on_release: app.change_screen("Account")
 
+#=== END MENU ===>
 
 <Deals>:
-    BoxLayout:
+    MDLabel:
+        text: "Ваши сделки"
+        pos_hint: {"x": 0.02, "y": 0.44}
+        font_size: "22sp"
+
+
+    MDIconButton:
+        icon: "plus"
+        theme_text_color: "Custom"
+        text_color: 0,0,0,1
+        pos_hint: {"x": 0.85, "y": 0.9}
+        icon_size: "32sp"
+        on_release: app.change_screen("CreateDeal")
+
+    MDScrollView:
         orientation: "vertical"
-        MDRoundFlatButton:
-            text: "Go to Tela 2"
-            on_release: app.root.current = "tela2"
+        size_hint: (0.99, 0.7)
+        pos_hint: {"x": 0.01, "y": 0.2}
 
-        MDBottomAppBar:
+        MDList:
 
-            MDActionBottomAppBarButton:
-                icon: "chart-line"
-                pos_hint: {"x": 0.1, "y": 0.2}
-                on_release: app.change_screen("Main")
+            ThreeLineListItem:
+                text: "Сделка"
+                secondary_text: "Дата сделки: 01.01.2024"
+                tertiary_text: "fit more text than usual"
 
-            MDActionBottomAppBarButton:
-                icon: "handshake"
-                pos_hint: {"x": 0.45, "y": 0.2}
 
-            MDActionBottomAppBarButton:
-                pos_hint: {"x": 0.8, "y": 0.2}
-                icon: "account"
-                on_release: app.change_screen("Account")
+#=== MENU ===>
+
+    MDBottomAppBar:
+        MDActionBottomAppBarButton:
+            icon: "chart-line"
+            pos_hint: {"x": 0.1, "y": 0.2}
+            on_release: app.change_screen("Main")
+
+        MDActionBottomAppBarButton:
+            icon: "handshake"
+            pos_hint: {"x": 0.45, "y": 0.2}
+
+        MDActionBottomAppBarButton:
+            pos_hint: {"x": 0.8, "y": 0.2}
+            icon: "account"
+            on_release: app.change_screen("Account")
+
+#=== END MENU ===>
 
 
 <Account>:
@@ -71,7 +96,7 @@
     MDRaisedButton:
         id: stockButton
         text: root.getCurrentStock()
-        pos_hint: {"center_x": .5, "center_y":.8}
+        pos_hint: {"center_x": .3, "center_y":.8}
         on_release: root.open_stocks()
 
 #=== End Stock Market ===>
@@ -79,24 +104,45 @@
 #=== DEPOSIT ===>
 
     MDLabel:
-        text: "Депозит:"
+        text: root.getCurrentDeposit()
         padding: 15
         pos_hint: {"center_x": .5, "center_y": .7}
 
-    MDRaisedButton:
-        id: depositButton
-        text: root.getCurrentStock()
-        pos_hint: {"center_x": .5, "center_y": .7}
-        on_release: root.depositDialog()
-
 #=== END DEPOSIT ===>
+
+#=== Percentage Of Risk Of Deposit ===>
+
+    MDLabel:
+        text: root.getCurrentPercentageOfRiskOfDeposit()
+        padding: 15
+        pos_hint: {"center_x": .5, "center_y": .6}
+
+#=== End Percentage Of Risk Of Deposit ===>
+
+#=== SMART STOP ===>
+
+    MDLabel:
+        text: root.getCurrentSmartStopPercentage()
+        padding: 15
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+#=== END SMART STOP ===>
+
+#=== Change Properties ===>
+
+    MDRaisedButton:
+        text: "Поменять значения"
+        size_hint: (0.9, 0.1)
+        pos_hint: {"center_x": .5, "center_y":.2}
+        on_release: app.change_screen("ChangeDefaultSettings")
+
+#=== End Change Properties ===>
 
 #=== MENU ===>
     BoxLayout:
         orientation: "vertical"
 
         MDBottomAppBar:
-
             MDActionBottomAppBarButton:
                 icon: "chart-line"
                 pos_hint: {"x": 0.1, "y": 0.2}
@@ -111,3 +157,60 @@
                 icon: "account"
                 pos_hint: {"x": 0.8, "y": 0.2}
 #=== END MENU ===>
+
+#=== CHANGE DEFAULT SETTINGS ===>
+<ChangeDefaultSettings>:
+    MDLabel:
+        text: "Поменять параметры"
+        pos_hint: {"center_x": 0.525, "center_y":.9}
+
+    MDLabel:
+        text: "Депозит: "
+        pos_hint: {"center_x": 0.525, "center_y":.8}
+
+    MDTextField:
+        id: deposit
+        size_hint: (0.5, 0.1)
+        pos_hint: {"center_x": 0.45, "center_y":.8}
+        hint_text: root.getCurrentDeposit()
+        helper_text_mode: "on_focus"
+
+    MDLabel:
+        text: "Процент риска по депозиту: "
+        pos_hint: {"center_x": 0.525, "center_y":.7}
+
+    MDTextField:
+        id: percentageOfRiskOfDeposit
+        size_hint: (0.4, 0.1)
+        pos_hint: {"center_x": 0.7, "center_y":.7}
+        hint_text: root.getCurrentPercentageOfRiskOfDeposit()
+        helper_text_mode: "on_focus"
+
+    MDLabel:
+        text: "Смарт стоп: "
+        pos_hint: {"center_x": 0.525, "center_y":.6}
+
+    MDTextField:
+        id: smartStopPercentage
+        size_hint: (0.5, 0.1)
+        pos_hint: {"center_x": 0.5, "center_y":.6}
+        hint_text: root.getCurrentSmartStopPercentage()
+        helper_text_mode: "on_focus"
+
+    MDRaisedButton:
+        text: "Применить"
+        size_hint: (0.95, 0.09)
+        pos_hint: {"center_x": 0.5, "center_y":0.2}
+        on_release: root.changeProperties()
+
+    MDRaisedButton:
+        text: "Назад"
+        size_hint: (0.95, 0.09)
+        pos_hint: {"center_x": 0.5, "center_y":0.1}
+        on_release: app.change_screen("Account")
+
+#=== END CHANGE DEFAULT SETTINGS ===>
+
+#=== CREATE DEAL ===>
+
+#=== END CREATE DEAL ===>
