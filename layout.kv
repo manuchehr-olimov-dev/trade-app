@@ -39,13 +39,21 @@
         icon_size: "32sp"
         on_release: app.change_screen("CreateDeal")
 
+    MDIconButton:
+        icon: "refresh"
+        theme_text_color: "Custom"
+        text_color: 0,0,0,1
+        pos_hint: {"x": 0.75, "y": 0.9}
+        icon_size: "32sp"
+        on_release: root.show_deals()
+
     MDScrollView:
         orientation: "vertical"
         size_hint: (0.99, 0.7)
         pos_hint: {"x": 0.01, "y": 0.2}
 
         MDList:
-
+            id: dealsContainer
             ThreeLineListItem:
                 MDLabel:
                     text:"123"
