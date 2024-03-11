@@ -13,12 +13,6 @@ connection = psycopg2.connect(
 if(connection):
     print("ok")
 
-settings = open('user_settings.json')
-
-data = json.load(settings)
-
-
-print(data["username"])
 
 # cursor = connection.cursor()
 #

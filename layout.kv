@@ -47,9 +47,8 @@
         MDList:
 
             ThreeLineListItem:
-                text: "Сделка"
-                secondary_text: "Дата сделки: 01.01.2024"
-                tertiary_text: "fit more text than usual"
+                MDLabel:
+                    text:"123"
 
 
 #=== MENU ===>
@@ -212,5 +211,126 @@
 #=== END CHANGE DEFAULT SETTINGS ===>
 
 #=== CREATE DEAL ===>
+<CreateDeal>:
+
+    MDLabel:
+        text: "Создать сделку"
+        pos_hint: {"x": 0.02, "y": 0.44}
+        font_size: "22sp"
+
+
+    MDLabel:
+        text: "Тикер:"
+        pos_hint: {"x": .02, "y":.35}
+
+    MDRaisedButton:
+        id: ticketButton
+        text: "BTC"
+        pos_hint: {"x": .14, "y":.82}
+        on_release: root.openTickets()
+
+    MDLabel:
+        text: "Депозит: "
+        pos_hint: {"x": .3, "y":.35}
+
+    MDTextField:
+        id: deposit
+        size_hint: (0.4, 0.1)
+        pos_hint: {"x": 0.45, "y":.8}
+        hint_text: "$"
+        helper_text_mode: "on_focus"
+        on_text: root.print_deposit(self.text)
+
+    MDLabel:
+        text: "Процент риска: "
+        pos_hint: {"x": .02, "y":.25}
+
+    MDTextField:
+        id: percentageOfRisk
+        size_hint: (0.25, 0.1)
+        pos_hint: {"x": 0.3, "y":.7}
+        hint_text: "----"
+        helper_text_mode: "on_focus"
+        on_text: root.print_percentage_of_risk(self.text)
+
+
+    MDLabel:
+        id: dateLabel
+        text: "Дата: "
+        pos_hint: {"x": .6, "y":.25}
+
+    MDRaisedButton:
+        id: dateButton
+        pos_hint: {'x': .75, "y": .72}
+        size_hint_x: .2
+        on_release: root.show_date_picker()
+
+
+    MDLabel:
+        text: "Цена входа: "
+        pos_hint: {"x": .02, "y":.15}
+
+    MDTextField:
+        id: entryPrice
+        size_hint: (0.5, 0.1)
+        pos_hint: {"x": 0.3, "y":.6}
+        hint_text: "Введите что нибудь..."
+        helper_text_mode: "on_focus"
+
+    MDLabel:
+        text: "Цена стопа: "
+        pos_hint: {"center_x": 0.525, "center_y":.57}
+
+    MDTextField:
+        id: stopPrice
+        size_hint: (0.5, 0.1)
+        pos_hint: {"center_x": 0.55, "center_y":.57}
+        hint_text: "Введите что нибудь..."
+        helper_text_mode: "on_focus"
+
+    MDLabel:
+        text: "Размер стопа: "
+        pos_hint: {"center_x": 0.525, "center_y":.48}
+
+    MDTextField:
+        id: stopPriceAmount
+        size_hint: (0.5, 0.1)
+        pos_hint: {"center_x": 0.55, "center_y":.48}
+        hint_text: "Введите что нибудь..."
+        helper_text_mode: "on_focus"
+
+    MDLabel:
+        text: "Цена выхода: "
+        pos_hint: {"center_x": 0.525, "center_y":.39}
+
+    MDTextField:
+        id: stopInUsdt
+        size_hint: (0.5, 0.1)
+        pos_hint: {"center_x": 0.55, "center_y":.39}
+        hint_text: "Введите что нибудь..."
+        helper_text_mode: "on_focus"
+
+    MDLabel:
+        text: "Заметка: "
+        pos_hint: {"center_x": 0.525, "center_y":.3}
+
+    MDTextField:
+        id: notion
+        size_hint: (0.5, 0.1)
+        pos_hint: {"center_x": 0.55, "center_y":.3}
+        hint_text: "Введите что нибудь..."
+        helper_text_mode: "on_focus"
+
+    MDRaisedButton:
+        text: "Создать"
+        size_hint: (0.95, 0.08)
+        pos_hint: {"center_x": 0.5, "center_y":0.15}
+        on_release: root.create_deal()
+
+    MDRaisedButton:
+        text: "Назад"
+        size_hint: (0.95, 0.08)
+        pos_hint: {"center_x": 0.5, "center_y":0.05}
+        on_release: app.change_screen("Deals")
 
 #=== END CREATE DEAL ===>

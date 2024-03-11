@@ -8,7 +8,7 @@ from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivymd.uix.label import MDLabel
 from kivymd.uix.textfield import MDTextField
-from kivymd.uix.list import MDList
+from kivymd.uix.list import MDList, OneLineListItem
 from kivymd.uix.scrollview import MDScrollView
 from kivymd.uix.list import ThreeLineListItem
 
@@ -20,10 +20,3 @@ class Deals(Screen):
     def __init__(self, **kwargs):
         super(Deals, self).__init__(**kwargs)
 
-    def on_start(self):
-        for _ in range(39):
-            self.root.ids.container.add_widget(
-                OneLineListItem(
-                    text=f"This is elem #{_}"
-                )
-            )

@@ -10,6 +10,7 @@ from kivy.config import Config
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.dialog import MDDialog
 from components.ChangeDefaultSettings import ChangeDefaultSettings
+from components.CreateDeal import CreateDeal
 
 from components.account import Account
 from components.main import Main
@@ -21,8 +22,6 @@ Config.set('graphics', 'resizable', False)
 Config.write()
 
 Builder.load_file("layout.kv")
-
-
 
 
 
@@ -39,6 +38,7 @@ class MainApp(MDApp):
         self.sm.add_widget(Deals(name="Deals"))
         self.sm.add_widget(Account(name="Account"))
         self.sm.add_widget(ChangeDefaultSettings(name="ChangeDefaultSettings"))
+        self.sm.add_widget(CreateDeal(name="CreateDeal"))
 
         return self.sm
 
